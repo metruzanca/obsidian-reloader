@@ -1,6 +1,6 @@
 {
   "name": "obsidian-reloader",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "An Obsidian Plugin and Rollup Plugin to enable auto-reloading during Obsidian Plugin development",
   "main": "./dist/index.js",
   "files": [
