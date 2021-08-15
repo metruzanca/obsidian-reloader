@@ -1,0 +1,36 @@
+{
+  "name": "obsidian-plugin-template",
+  "version": "0.1.0",
+  "description": "An enhanced Obsidian plugin template",
+  "main": "main.js",
+  "scripts": {
+    "dev": "rollup --config rollup.config.js -w",
+    "build": "rollup --config rollup.config.js --environment BUILD:production",
+    "release": "npx tagger"
+  },
+  "keywords": [
+    "obsidian",
+    "obsidian-md",
+    "obsidian-plugin"
+  ],
+  "author": "metruzanca",
+  "license": "MIT",
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-node-resolve": "^11.2.1",
+    "@rollup/plugin-typescript": "^8.2.1",
+    "@types/node": "^14.14.37",
+    "obsidian": "^0.12.0",
+    "rollup": "^2.32.1",
+    "rollup-plugin-copy": "^3.4.0",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "gh-tagger": "^0.2.4"
+  },
+  "semverPaths": [
+    "./manifest.json",
+    "./package.json"
+  ]
+}

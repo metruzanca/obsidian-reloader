@@ -1,0 +1,24 @@
+name: Releases
+
+on: 
+  push:
+    tags:
+    - '*'
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - run: npm install
+    # - run: npm test
+    - run: npm run build
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "build/*"
+        bodyFile: "body.md"
+        token: ${{ secrets.GITHUB_TOKEN }}
