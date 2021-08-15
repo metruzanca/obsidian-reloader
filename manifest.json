@@ -1,7 +1,7 @@
 {
-  "id": "obsidian-plugin-template",
-  "name": "Plugin Template",
-  "version": "0.1.0",
+  "id": "obsidian-reloader",
+  "name": "Obsidian Reloader",
+  "version": "0.0.0",
   "minAppVersion": "0.9.12",
   "description": "An enhanced Obsidian plugin template",
   "author": "metruzanca",

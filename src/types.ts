@@ -1,3 +1,3 @@
-export interface MyPluginSettings {
-	mySetting: string;
+export interface Settings {
+	port: number;
 }

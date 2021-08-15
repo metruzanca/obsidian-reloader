@@ -31,7 +31,6 @@ export default {
       targets: [
         {
           src: [
-            './styles.css',
             './manifest.json'
           ], 
           dest: 'build'

@@ -1,30 +1,27 @@
 import { App, PluginSettingTab, Setting } from "obsidian";
-import MyPlugin from "./main";
+import ObsidianReloader from "./main";
 
-export class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+export class ReloaderSettings extends PluginSettingTab {
+	plugin: ObsidianReloader;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: ObsidianReloader) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
 
 	display(): void {
 		let {containerEl} = this;
-
 		containerEl.empty();
-
-		containerEl.createEl('h2', {text: 'Settings for my awesome plugin.'});
+		containerEl.createEl('h2', {text: 'Obsidian Reloader Settings'});
 
 		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
+			.setName('Port')
+			.setDesc('Port used by the websocket server')
 			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue('')
+				.setPlaceholder('8080')
+				.setValue(this.plugin.settings.port.toFixed())
 				.onChange(async (value) => {
-					console.log('Secret: ' + value);
-					this.plugin.settings.mySetting = value;
+					this.plugin.settings.port = parseInt(value);
 					await this.plugin.saveSettings();
 				}));
 	}

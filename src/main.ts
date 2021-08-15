@@ -1,83 +1,39 @@
 import { App, Modal, Notice, Plugin } from 'obsidian';
-import { SampleSettingTab } from './settings';
-import { MyPluginSettings } from './types';
+import { ReloaderSettings } from './settings';
+import { Settings } from './types';
+import { Reloader } from './ws';
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
-	mySetting: 'default'
+const DEFAULT_SETTINGS: Settings = {
+	port: 8080
 }
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class ObsidianReloader extends Plugin {
+	settings: Settings;
+	reloader: Reloader
 
 	async onload() {
-		console.log('loading plugin');
-
 		await this.loadSettings();
+		this.reloader = new Reloader({
+			port: this.settings.port,
+			onConnect: this.connected
+		})
 
-		this.addRibbonIcon('dice', 'Sample Plugin', () => {
-			new Notice('This is a notice!');
-		});
-
-		this.addStatusBarItem().setText('Status Bar Text');
-
-		this.addCommand({
-			id: 'open-sample-modal',
-			name: 'Open Sample Modal',
-			// callback: () => {
-			// 	console.log('Simple Callback');
-			// },
-			checkCallback: (checking: boolean) => {
-				let leaf = this.app.workspace.activeLeaf;
-				if (leaf) {
-					if (!checking) {
-						new SampleModal(this.app).open();
-					}
-					return true;
-				}
-				return false;
-			}
-		});
-
-		this.addSettingTab(new SampleSettingTab(this.app, this));
-
-		this.registerCodeMirror((cm: CodeMirror.Editor) => {
-			console.log('codemirror', cm);
-		});
-
-		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-			console.log('click', evt);
-		});
-
-		this.registerInterval(
-			window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000)
-		);
+		this.addSettingTab(new ReloaderSettings(this.app, this));
 	}
 
 	onunload() {
-		console.log('unloading plugin');
+		this.reloader.kill()
+	}
+
+	connected() {
+		this.addStatusBarItem().setText('⚡ Obsidian Reloader Ready! ⚡');
 	}
 
 	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+		this.settings = {...DEFAULT_SETTINGS, ...await this.loadData()};
 	}
 
 	async saveSettings() {
 		await this.saveData(this.settings);
-	}
-}
-
-class SampleModal extends Modal {
-	constructor(app: App) {
-		super(app);
-	}
-
-	onOpen() {
-		let {contentEl} = this;
-		contentEl.setText('Woah!');
-	}
-
-	onClose() {
-		let {contentEl} = this;
-		contentEl.empty();
 	}
 }

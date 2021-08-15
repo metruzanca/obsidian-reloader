@@ -16,7 +16,12 @@ jobs:
         node-version: '14'
     - run: npm install
     # - run: npm test
-    - run: npm run build
+    # Release rollup plugin
+    - run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    # Release obsidian plugin
+    - run: "npm run build:obsidian"
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "build/*"
