@@ -2,9 +2,9 @@
   "name": "obsidian-reloader",
   "version": "0.1.1",
   "description": "An Obsidian Plugin and Rollup Plugin to enable auto-reloading during Obsidian Plugin development",
-  "main": "./lib/index.js",
+  "main": "./dist/index.js",
   "files": [
-    "lib/"
+    "dist/"
   ],
   "scripts": {
     "build:npm": "tsc -p tsconfig-npm.json",

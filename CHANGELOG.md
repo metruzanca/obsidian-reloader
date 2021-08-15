@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.1] - 2021-08-15
+## [0.1.2] - 2021-08-15
+### Fixed
+- publishing dist instead of lib to npm
+
+## [0.1.0] - 2021-08-15
 ### Added 
 - Obsidian plugin that reloads app when rollup rebuilds
 - Rollup plugin that signals obsidian to reload after a rebuild
